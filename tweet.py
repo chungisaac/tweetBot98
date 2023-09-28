@@ -61,20 +61,23 @@ def main(generate_only=False, tweet_only=False):
             print(f"{translated_tweet=}")
             continue
 
-        response = client.create_tweet(
-            text=translated_tweet
-        )
-        tweet_id = response.data['id']
-        print(f"Tweet ID: {tweet_id}")
+        try:
+            response = client.create_tweet(
+                text=translated_tweet
+            )
+            tweet_id = response.data['id']
+            print(f"Tweet ID: {tweet_id}")
 
-        if tweet_only:
-            exit()
+            if tweet_only:
+                exit()
 
-        tweet_url = build_tweet_url(tweet_id)
-        image_path = f"{tweet_id}.png"
-        
-        asyncio.run(tc.screenshot(tweet_url, image_path, mode=3, night_mode=0))
-        ClarifaiUploader().upload(image_file_location=image_path)
+            tweet_url = build_tweet_url(tweet_id)
+            image_path = f"{tweet_id}.png"
+            
+            asyncio.run(tc.screenshot(tweet_url, image_path, mode=3, night_mode=0))
+            ClarifaiUploader().upload(image_file_location=image_path)
+        except:
+            print("create tweet failed.")
 
 
 if __name__ == "__main__":
