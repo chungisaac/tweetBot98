@@ -8,7 +8,7 @@ on:
 jobs:
   create-tweets-cron:
     runs-on: ubuntu-20.04
-    timeout-minutes: 10
+    timeout-minutes: 600
     steps:
       - uses: actions/checkout@v3 
       - uses: actions/setup-python@v4
